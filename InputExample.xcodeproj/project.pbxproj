@@ -300,6 +300,7 @@
 				733652C31E1D6ACB00C00FD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

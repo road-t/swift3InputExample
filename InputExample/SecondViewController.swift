@@ -10,14 +10,15 @@ import UIKit
 
 class SecondViewController: UIViewController
 {
-    var inputValue = ""; // переменная, которая принимает текст для вывода
+    var login = "";
+    var password = "";
     
     @IBOutlet weak var label: UILabel! // Label для простоты создан в IB
     
     override func viewDidLoad()
     {
         // просто устанавливаем текст, равный переданной переменной
-        self.label.text = inputValue
+        self.label.text = "Logged in with phone number of \(login)\nidentified by '\(password)'"
     }
     
     @IBAction func goBack(_ sender: Any)

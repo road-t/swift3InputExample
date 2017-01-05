@@ -11,14 +11,18 @@ import UIKit
 class ViewController: UIViewController
 {
     @IBOutlet weak var inputTF: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+    
+    // кнопка будет создана при первом обращении к переменной
+    lazy var button: UIButton! = UIButton()
+    
+    lazy var login = String()
+    lazy var password = String()
     
     override func viewDidLoad()
     {
-        // создаем кнопку
-        let button = UIButton()
-    
-        button.backgroundColor = UIColor.blue
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        self.button.backgroundColor = UIColor.blue
+        self.button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         
         // цвет и текст заголовока устанавливается через сеттеры
         button.setTitleColor(UIColor.yellow, for: .normal)
@@ -44,12 +48,47 @@ class ViewController: UIViewController
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
+    // функция вызывается непосредственно перед рендерингом вью
+    override func viewWillAppear(_ animated: Bool)
+    {
+        // прячем кнопку логина, показываем первую
+        loginButton.isHidden = true
+        button.isHidden = false
+        
+        // пытаемся загрузить номер телефона, если он был сохранен ранее
+        let stored = UserDefaults()
+        
+        if let phoneNumber = stored.object(forKey: "phoneNumber")
+        {
+            self.inputTF.text = phoneNumber as? String
+        }
+        else
+        {
+            inputTF.text = ""
+        }
+    }
+    
     func pushButton(sender: UIButton!)
     {
+        self.login = inputTF.text!
+        inputTF.text = ""
+        loginButton.isHidden = false
+        button.isHidden = true
+    }
+    
+    @IBAction func login(_ sender: UIButton!)
+    {
+        self.password = inputTF.text!
+        
+        // сохраняем номер телефона
+        let stored = UserDefaults()
+        stored.setValue(self.login, forKey: "phoneNumber")
+        
         // переход к другому вью посредством storyboard
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "secondVC") as! SecondViewController
         // устанавливаем переменную класса вызываемой вьюхе - по-друому значение ей не передать
-        nextVC.inputValue = self.inputTF.text!
+        nextVC.login = self.login
+        nextVC.password = self.password
         
         // отображаем
         self.present(nextVC, animated: true, completion: nil)
