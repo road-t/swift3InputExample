@@ -70,12 +70,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-    // обработчик кликов по конкретному чату
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
-        print("Chat #\(indexPath.item): \(chatData[indexPath.item].title)")
-    }
-    
     func randomColor() -> UIColor{
         
         let red: CGFloat = CGFloat(drand48())
@@ -85,5 +79,17 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         return UIColor(red: red, green: green, blue: blue, alpha: alpha)
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "toChatSegue"
+        {
+            let chatController = segue.destination as? ChatViewController
+            if let indexPath = self.table.indexPathForSelectedRow
+            {
+                chatController?.chatId = indexPath.item
+            }
+        }
     }
 }
