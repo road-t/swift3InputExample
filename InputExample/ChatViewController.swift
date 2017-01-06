@@ -18,6 +18,9 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad()
     {
         print("chat #\(chatId) opened")
+        self.title = "Chat #\(chatId) title"
+        
+        self.navigationController?.navigationItem.backBarButtonItem?.title = "fuck"
     }
     
     @IBAction func sendAction(_ sender: Any)
@@ -31,7 +34,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return 0
+        return 10
     }
     
     func numberOfSections(in tableView: UITableView) -> Int
@@ -45,4 +48,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         return cell
     }
+    
+    @IBAction func swipeAction(_ sender: UISwipeGestureRecognizer)
+    {
+        navigationController!.popViewController(animated: true)
+    }
+    
 }

@@ -75,23 +75,21 @@ class ViewController: UIViewController
         loginButton.isHidden = false
         button.isHidden = true
     }
-    
-    @IBAction func login(_ sender: UIButton!)
+
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool
     {
-        self.password = inputTF.text!
+        if identifier == "toChatsListSegue"
+        {
+            self.password = inputTF.text!
+            
+            // сохраняем номер телефона
+            let stored = UserDefaults()
+            stored.setValue(self.login, forKey: "phoneNumber")
+            
+            return true
+        }
         
-        // сохраняем номер телефона
-        let stored = UserDefaults()
-        stored.setValue(self.login, forKey: "phoneNumber")
-        
-        // переход к другому вью посредством storyboard
-        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "secondVC") as! SecondViewController
-        // устанавливаем переменную класса вызываемой вьюхе - по-друому значение ей не передать
-        nextVC.login = self.login
-        nextVC.password = self.password
-        
-        // отображаем
-        self.present(nextVC, animated: true, completion: nil)
+        return false
     }
 }
 

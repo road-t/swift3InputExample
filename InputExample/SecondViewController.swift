@@ -9,10 +9,10 @@
 import UIKit
 
 // грубый массив чатов в виде кортежей
-var chatData = [(title: "Chat 1", lastMessage: "Message blah-blah-blah", lastTime: "01.05.17 17:08"),
-                (title: "Chat 2", lastMessage: "Message2 blah2-blah2-blah", lastTime: "01.05.17 16:30"),
-                (title: "Chat 3", lastMessage: "Message3 blah-blah-blah3", lastTime: "01.05.17 16:41"),
-                (title: "Chat X", lastMessage: "Lorem ipsum dolor sit amet", lastTime: "01.05.17 17:54")
+var chatData = [(id: 100, title: "Chat 1", lastMessage: "Message blah-blah-blah", lastTime: "01.05.17 17:08"),
+                (id: 5, title: "Chat 2", lastMessage: "Message2 blah2-blah2-blah", lastTime: "01.05.17 16:30"),
+                (id: 3, title: "Chat 3", lastMessage: "Message3 blah-blah-blah3", lastTime: "01.05.17 16:41"),
+                (id: 888, title: "Chat X", lastMessage: "Lorem ipsum dolor sit amet", lastTime: "01.05.17 17:54")
 ]
 
 class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
@@ -25,13 +25,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad()
     {
-        // просто устанавливаем текст, равный переданной переменной
-        self.label.text = "Logged in with phone number of \(login)\nidentified by '\(password)'"
         table.delegate = self
         table.dataSource = self
-        
-        // при обновлении данных перерисовать таблицу (в данном случае вызов не нужен)
-        table.reloadData()
     }
     
     @IBAction func goBack(_ sender: Any)
@@ -88,7 +83,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let chatController = segue.destination as? ChatViewController
             if let indexPath = self.table.indexPathForSelectedRow
             {
-                chatController?.chatId = indexPath.item
+                chatController?.chatId = chatData[indexPath.item].id
             }
         }
     }
