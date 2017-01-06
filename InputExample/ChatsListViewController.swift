@@ -15,7 +15,7 @@ var chatData = [(id: 100, title: "Chat 1", lastMessage: "Message blah-blah-blah"
                 (id: 888, title: "Chat X", lastMessage: "Lorem ipsum dolor sit amet", lastTime: "01.05.17 17:54")
 ]
 
-class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
+class ChatsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
     @IBOutlet weak var table: UITableView!
     var login = "";
